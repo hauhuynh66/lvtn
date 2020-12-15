@@ -161,8 +161,7 @@ public class DataService {
         return report;
     }
 
-    public boolean add(int house_id, DHT dht, Misc msc){
-        House house = houseRepository.findById(house_id);
+    public boolean add(House house, DHT dht, Misc msc){
         if(house==null){
             return false;
         }else{

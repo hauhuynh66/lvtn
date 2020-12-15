@@ -9,8 +9,18 @@ import java.util.Date;
 
 public class Formatter {
     public static String formatDate(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(date);
+    }
+
+    public static Date parseTime(String sTime){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            return formatter.parse(sTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static Date parseDate(String sDate){

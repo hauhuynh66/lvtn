@@ -1,19 +1,29 @@
 package com.lvtn.controller;
 
 import com.lvtn.model.House;
+import com.lvtn.model.RS;
 import com.lvtn.service.DataService;
+import com.lvtn.service.RestService;
+import com.lvtn.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/house")
 public class HouseController {
     @Autowired
     private DataService dataService;
+
+    @Autowired
+    private RestService restService;
 
     @GetMapping("/{id}")
     public ModelAndView house(@PathVariable int id){
@@ -39,5 +49,18 @@ public class HouseController {
         ModelAndView report = new ModelAndView("report");
         report.addObject("house", house);
         return report;
+    }
+    @GetMapping("/{id}/setting")
+    public ModelAndView setting(@PathVariable int id){
+        House house = dataService.getHouse(id);
+        ModelAndView setting = new ModelAndView("setting").addObject("house", house);
+        try {
+            File file = new ClassPathResource("setting/1.json").getFile();
+            RS rs = Utils.getFromFile(file);
+            setting.addObject("rs", rs);
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        return setting;
     }
 }

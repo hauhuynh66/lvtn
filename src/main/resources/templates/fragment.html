@@ -48,6 +48,14 @@
             </a>
         </div>
     </div>
+    <div class="item-holder">
+        <div class="sidebar-item">
+            <a th:href="@{/house/{id}/setting(id=${house.id})}" class="sidebar-text normal-text pt-2">
+                <i class="fa fa-cog large-text"></i>
+                <span class="ml-2">Setting</span>
+            </a>
+        </div>
+    </div>
 </div>
 <div th:fragment="topbar">
     <div class="navbar navbar-expand navbar-dark shadow bg-white test">
