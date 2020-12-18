@@ -4,14 +4,9 @@ public class RS {
     private String name;
     private double t;
     private double h;
-
+    private double s;
+    private double l;
     public RS() {
-    }
-
-    public RS(String name, double t, double h) {
-        this.name = name;
-        this.t = t;
-        this.h = h;
     }
 
     public String getName() {
@@ -36,5 +31,21 @@ public class RS {
 
     public void setH(double h) {
         this.h = h;
+    }
+
+    public double getS() {
+        return s;
+    }
+
+    public void setS(double s) {
+        this.s = s;
+    }
+
+    public double getL() {
+        return l;
+    }
+
+    public void setL(double l) {
+        this.l = l;
     }
 }

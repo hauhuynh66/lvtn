@@ -16,7 +16,7 @@ import java.util.Date;
 @Component
 public class Excel {
     private static final Logger log = LogManager.getLogger();
-    public void writeToExcel(Report rp){
+    public File writeToExcel(Report rp){
         int i = 1;
         XSSFWorkbook workbook = new XSSFWorkbook();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
@@ -62,8 +62,10 @@ public class Excel {
             FileOutputStream fileOutputStream = new FileOutputStream(fileLoc);
             workbook.write(fileOutputStream);
             fileOutputStream.close();
+            return new File(fileLoc);
         }catch (IOException io){
             log.info(io.getMessage());
+            return null;
         }
     }
 }

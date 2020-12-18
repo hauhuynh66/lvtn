@@ -313,6 +313,10 @@ a.card{
     border-radius: 10px;
 }
 
+input.input-center{
+    text-align: center;
+}
+
 .limiter-2{
     width: 800px;
     max-width: 80%;

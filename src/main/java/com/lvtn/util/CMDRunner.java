@@ -41,12 +41,12 @@ public class CMDRunner implements CommandLineRunner {
                 utils.encoder(5).encode("Hauhuynh"));
         userRepository.save(u1);
         userRepository.save(u2);
-        populate();
+        init();
+        //populate();
         log.info("DONE");
     }
 
     private void populate(){
-        init();
         List<House> houses = houseRepository.findAll();
         DHT[] dhts = new DHT[N];
         Misc[] msc = new Misc[N];

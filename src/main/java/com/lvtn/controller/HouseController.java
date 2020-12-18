@@ -22,9 +22,6 @@ public class HouseController {
     @Autowired
     private DataService dataService;
 
-    @Autowired
-    private RestService restService;
-
     @GetMapping("/{id}")
     public ModelAndView house(@PathVariable int id){
         House house = dataService.getHouse(id);
@@ -55,7 +52,7 @@ public class HouseController {
         House house = dataService.getHouse(id);
         ModelAndView setting = new ModelAndView("setting").addObject("house", house);
         try {
-            File file = new ClassPathResource("setting/1.json").getFile();
+            File file = new ClassPathResource("setting/"+house.id+".json").getFile();
             RS rs = Utils.getFromFile(file);
             setting.addObject("rs", rs);
         }catch (IOException e){

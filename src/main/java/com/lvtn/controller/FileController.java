@@ -5,11 +5,20 @@ import com.lvtn.service.FileStorageService;
 import com.lvtn.util.Excel;
 import com.lvtn.util.Report;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Date;
 
 @Controller
 public class FileController {
@@ -25,11 +34,16 @@ public class FileController {
         return "OK";
     }
 
-    @GetMapping("/excel")
+    @GetMapping("/{id}/excel")
     @ResponseBody
-    public String create(){
-        Report rp = dataService.basicReport(1);
-        excel.writeToExcel(rp);
-        return "OK";
+    public ResponseEntity<InputStreamResource> create(@PathVariable("id")int id) throws FileNotFoundException {
+        Date from = new Date();
+        Date to = new Date(from.getTime()+86400000);
+        Report rp = dataService.basicReport(id, from, to);
+        File file = excel.writeToExcel(rp);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename="+file.getName())
+                .body(new InputStreamResource(new FileInputStream(file)));
     }
+
 }

@@ -6,6 +6,7 @@
     <link th:href="@{/vendor/bootstrap/bootstrap.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/vendor/font-awesome/css/all.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/vendor/datepicker/datepicker.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -17,27 +18,7 @@
         <div class="col-sm-12 col-mb-9 col-lg-9 col-xl-9 content" id="content">
             <div th:include="fragment::topbar"></div>
             <div class="main-content my-4 ml-4">
-                <h3>Standard Values</h3>
-                <hr>
-                <div class="mx-5">
-                    <div class="row">
-                        <div class="col-6">
-                            <p>Temperature:</p>
-                        </div>
-                        <div class="col-6">
-                            <input class="form-control input-center" th:value="${rs.t}">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>Humidity:</p>
-                        </div>
-                        <div class="col-6">
-                            <input class="form-control input-center" th:value="${rs.h}">
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <div th:include="fragment::footer"></div>
         </div>
@@ -49,6 +30,8 @@
 <script th:src="@{/vendor/font-awesome/js/fontawesome.js}"></script>
 <script th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
 <script th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
+<script th:src="@{/vendor/datepicker/datepicker.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/report.js}"></script>
 </body>
 </html>

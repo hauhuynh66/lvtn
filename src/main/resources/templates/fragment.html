@@ -12,7 +12,7 @@
         <span th:hidden="true" th:text="${house.id}" th:id="house_id"></span>
         <a th:href="@{/house/{id}(id=${house.id})}" class="sidebar-brand normal-text">
             <i class="fa fa-cubes fa-4x"></i>
-            <span class="large-text ml-2">House <span th:text="${house.name}"></span></span>
+            <span class="large-text ml-2">Room <span th:text="${house.name}"></span></span>
         </a>
     </div>
     <br>
@@ -72,7 +72,7 @@
                 <i class='fa fa-sign-in-alt icon-black'></i>
             </button>-->
         </div>
-        <div class="w-haft justify-content-end">
+        <!--<div class="w-haft justify-content-end">
             <div class='dropdown dropleft'>
                 <button class='btn dropdown-toggle' type='button' id='languageBtn' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                     Language
@@ -83,7 +83,7 @@
                     <a class='dropdown-item' href='#' id='lang-fr'><img th:src="@{/vendor/icon/flag/france.svg}" class='small-flag mr-3 mb-1' alt='fr'></a>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
     <div class="modal fade" tabindex="-1" role="dialog" id="logout-modal">
         <div class="modal-dialog" role="document">
