@@ -1,8 +1,6 @@
 package com.lvtn.controller;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lvtn.model.House;
 import com.lvtn.model.JsonObject;
 import com.lvtn.service.DataService;
 import com.lvtn.util.Utils;

@@ -9820,7 +9820,7 @@ hourglass-start:
 house-damage:
   changes:
     - 5.4.0
-  label: Damaged House
+  label: Damaged Room
   search:
     terms:
       - building
@@ -10132,7 +10132,7 @@ info:
     - '3.1'
     - 5.0.0
     - 5.10.1
-  label: ReportInfo
+  label: TimeInfo
   search:
     terms:
       - details
@@ -10148,7 +10148,7 @@ info-circle:
   changes:
     - '1'
     - 5.0.0
-  label: ReportInfo Circle
+  label: TimeInfo Circle
   search:
     terms:
       - details

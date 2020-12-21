@@ -1,5 +1,7 @@
 package com.lvtn.util;
 
+import com.lvtn.model.TimeInfo;
+import com.lvtn.model.TimeReport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
@@ -16,7 +18,7 @@ import java.util.Date;
 @Component
 public class Excel {
     private static final Logger log = LogManager.getLogger();
-    public File writeToExcel(Report rp){
+    public File writeToExcel(TimeReport rp){
         int i = 1;
         XSSFWorkbook workbook = new XSSFWorkbook();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
@@ -43,7 +45,7 @@ public class Excel {
         h2.setCellStyle(headerStyle);
         h3.setCellValue("Time");
         h3.setCellStyle(headerStyle);
-        for(ReportInfo info:rp.getRp()){
+        for(TimeInfo info : rp.getList()){
             Row row = report.createRow(i++);
             Cell c0 = row.createCell(0);
             Cell c1 = row.createCell(1);

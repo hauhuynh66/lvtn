@@ -48,4 +48,9 @@ public class RS {
     public void setL(double l) {
         this.l = l;
     }
+
+    @Override
+    public String toString() {
+        return getT()+"-"+getH()+"-"+getS()+"-"+getL();
+    }
 }

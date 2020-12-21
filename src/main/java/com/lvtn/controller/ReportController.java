@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/house")
+@RequestMapping("/room")
 public class ReportController {
     @Autowired
     private DataService dataService;

@@ -1,26 +1,31 @@
 package com.lvtn.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-public class House {
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
-    public String name;
-    @OneToMany(mappedBy = "house")
+    private int id;
+    private String name;
+    @OneToMany(mappedBy = "room")
     private List<DHT> dhtList;
-    @OneToMany(mappedBy = "house")
+    @OneToMany(mappedBy = "room")
     private List<Misc> miscList;
+    @OneToMany(mappedBy = "room")
+    private Set<RoomDevice> devices;
 
-    public House() {
+    public Room() {
     }
 
-    public House(String name) {
+    public Room(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setName(String name) {
@@ -45,5 +50,17 @@ public class House {
 
     public void setMiscList(List<Misc> miscList) {
         this.miscList = miscList;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Set<RoomDevice> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Set<RoomDevice> devices) {
+        this.devices = devices;
     }
 }

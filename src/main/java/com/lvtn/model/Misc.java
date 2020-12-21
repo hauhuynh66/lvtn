@@ -13,25 +13,25 @@ public class Misc {
     private double light;
     @ManyToOne
     @JoinColumn(name = "house_id", nullable = false)
-    private House house;
+    private Room room;
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date date;
 
     public Misc() {
     }
 
-    public Misc(double smoke, double light, House house) {
+    public Misc(double smoke, double light, Room room) {
         this.smoke = smoke;
         this.light = light;
         this.date = new Date();
-        this.house = house;
+        this.room = room;
     }
 
-    public Misc(double smoke, double light, Date date, House house) {
+    public Misc(double smoke, double light, Date date, Room room) {
         this.smoke = smoke;
         this.light = light;
         this.date = date;
-        this.house = house;
+        this.room = room;
     }
 
     public double getSmoke() {

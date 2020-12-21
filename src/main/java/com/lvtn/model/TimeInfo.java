@@ -1,13 +1,13 @@
-package com.lvtn.util;
+package com.lvtn.model;
 
 import java.util.Date;
 
-public class ReportInfo {
+public class TimeInfo {
     private double data;
     private Date time;
     private String des;
 
-    public ReportInfo(double data, Date time, String des) {
+    public TimeInfo(double data, Date time, String des) {
         this.data = data;
         this.time = time;
         this.des = des;

@@ -22,21 +22,41 @@
                 <div class="mx-5">
                     <div class="row">
                         <div class="col-6">
-                            <p>Temperature:</p>
+                            <p>Temperature :</p>
                         </div>
                         <div class="col-6">
-                            <input class="form-control input-center" th:value="${rs.t}">
+                            <input class="form-control input-center" th:value="${rs.t}" id="rs_t">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-6">
-                            <p>Humidity:</p>
+                            <p>Humidity :</p>
                         </div>
                         <div class="col-6">
-                            <input class="form-control input-center" th:value="${rs.h}">
+                            <input class="form-control input-center" th:value="${rs.h}" id="rs_h">
                         </div>
                     </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Smoke Density:</p>
+                        </div>
+                        <div class="col-6">
+                            <input class="form-control input-center" th:value="${rs.s}" id="rs_s">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Light Intensity :</p>
+                        </div>
+                        <div class="col-6">
+                            <input class="form-control input-center" th:value="${rs.l}" id="rs_l">
+                        </div>
+                    </div>
+                    <br>
+                    <button class="btn btn-primary float-right" id="send">Change</button>
                 </div>
             </div>
             <div th:include="fragment::footer"></div>
@@ -50,5 +70,6 @@
 <script th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
 <script th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/setting.js}"></script>
 </body>
 </html>

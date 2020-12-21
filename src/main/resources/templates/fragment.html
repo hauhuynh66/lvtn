@@ -9,16 +9,16 @@
 <body>
 <div th:fragment="sidebar">
     <div class="mt-4">
-        <span th:hidden="true" th:text="${house.id}" th:id="house_id"></span>
-        <a th:href="@{/house/{id}(id=${house.id})}" class="sidebar-brand normal-text">
+        <span th:hidden="true" th:text="${room.id}" th:id="house_id"></span>
+        <a th:href="@{/room/{id}(id=${room.id})}" class="sidebar-brand normal-text">
             <i class="fa fa-cubes fa-4x"></i>
-            <span class="large-text ml-2">Room <span th:text="${house.name}"></span></span>
+            <span class="large-text ml-2">Room <span th:text="${room.name}"></span></span>
         </a>
     </div>
     <br>
     <div class="item-holder pb-0 border-bottom-0">
         <div class="sidebar-item">
-            <a th:href="@{/house/{id}(id=${house.id})}" class="sidebar-text normal-text py-2">
+            <a th:href="@{/room/{id}(id=${room.id})}" class="sidebar-text normal-text py-2">
                 <i class="fa fa-home large-text"></i>
                 <span class="ml-2">Dashboard</span>
             </a>
@@ -26,7 +26,7 @@
     </div>
     <div class="item-holder">
         <div class="sidebar-item">
-            <a th:href="@{/house/{id}/weather(id=${house.id})}" class="sidebar-text normal-text pt-2">
+            <a th:href="@{/room/{id}/weather(id=${room.id})}" class="sidebar-text normal-text pt-2">
                 <i class="fa fa-globe large-text"></i>
                 <span class="ml-2">Weather</span>
             </a>
@@ -34,7 +34,7 @@
     </div>
     <div class="item-holder">
         <div class="sidebar-item">
-            <a th:href="@{/house/{id}/misc(id=${house.id})}" class="sidebar-text normal-text pt-2">
+            <a th:href="@{/room/{id}/misc(id=${room.id})}" class="sidebar-text normal-text pt-2">
                 <i class="fa fa-upload large-text"></i>
                 <span class="ml-2">Miscellaneous</span>
             </a>
@@ -42,7 +42,15 @@
     </div>
     <div class="item-holder">
         <div class="sidebar-item">
-            <a th:href="@{/house/{id}/report(id=${house.id})}" class="sidebar-text normal-text pt-2">
+            <a th:href="@{/room/{id}/device(id=${room.id})}" class="sidebar-text normal-text pt-2">
+                <i class="far fa-lightbulb large-text"></i>
+                <span class="ml-2">Devices</span>
+            </a>
+        </div>
+    </div>
+    <div class="item-holder">
+        <div class="sidebar-item">
+            <a th:href="@{/room/{id}/report(id=${room.id})}" class="sidebar-text normal-text pt-2">
                 <i class="fa fa-info-circle large-text"></i>
                 <span class="ml-2">Report</span>
             </a>
@@ -50,7 +58,7 @@
     </div>
     <div class="item-holder">
         <div class="sidebar-item">
-            <a th:href="@{/house/{id}/setting(id=${house.id})}" class="sidebar-text normal-text pt-2">
+            <a th:href="@{/room/{id}/setting(id=${room.id})}" class="sidebar-text normal-text pt-2">
                 <i class="fa fa-cog large-text"></i>
                 <span class="ml-2">Setting</span>
             </a>

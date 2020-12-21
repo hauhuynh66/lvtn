@@ -13,25 +13,25 @@ public class DHT {
     private double humid;
     @ManyToOne
     @JoinColumn(name = "house_id", nullable = false)
-    private House house;
+    private Room room;
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date date;
 
     public DHT() {
     }
 
-    public DHT(double temp, double humid, House house) {
+    public DHT(double temp, double humid, Room room) {
         this.temp = temp;
         this.humid = humid;
         this.date = new Date();
-        this.house = house;
+        this.room = room;
     }
 
-    public DHT(double temp, double humid,Date date, House house) {
+    public DHT(double temp, double humid,Date date, Room room) {
         this.temp = temp;
         this.humid = humid;
         this.date = date;
-        this.house = house;
+        this.room = room;
     }
 
     public double getTemp() {

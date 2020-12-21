@@ -25,7 +25,7 @@ function basic(from, to){
         url: './report/basic?from='+from+'&to='+to,
         success: function (data) {
             var res = jQuery.parseJSON(data);
-            $.each(res.rp,function (i,item) {
+            $.each(res.list,function (i,item) {
                 console.log(item);
                 var row = [item.des, item.data, new Date(item.time).toISOString()];
                 bs.row.add(row).draw(false);
@@ -44,9 +44,9 @@ function extra(from, to){
         url: './report/extra?from='+from+'&to='+to,
         success: function (data) {
             var res = jQuery.parseJSON(data);
-            $.each(res.rp,function (i,item) {
+            $.each(res.list,function (i,item) {
                 console.log(item);
-                var row = [item.des, item.data];
+                var row = [item.des, item.data.length];
                 ex.row.add(row).draw(false);
             });
         },

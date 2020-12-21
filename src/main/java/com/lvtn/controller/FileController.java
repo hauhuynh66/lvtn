@@ -1,9 +1,10 @@
 package com.lvtn.controller;
 
+import com.lvtn.model.TimeReport;
 import com.lvtn.service.DataService;
 import com.lvtn.service.FileStorageService;
 import com.lvtn.util.Excel;
-import com.lvtn.util.Report;
+import com.lvtn.model.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -39,7 +40,7 @@ public class FileController {
     public ResponseEntity<InputStreamResource> create(@PathVariable("id")int id) throws FileNotFoundException {
         Date from = new Date();
         Date to = new Date(from.getTime()+86400000);
-        Report rp = dataService.basicReport(id, from, to);
+        TimeReport rp = dataService.basicReport(id, from, to);
         File file = excel.writeToExcel(rp);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename="+file.getName())
