@@ -4,7 +4,9 @@ var s = $("#rs_s").val();
 var l = $("#rs_l").val();
 var id = $("#rs_id").val();
 var data = {
-    "id" : id,
+    "room" : {
+        "id" : id
+    },
     "t" : t,
     "h" : h,
     "s" : s,

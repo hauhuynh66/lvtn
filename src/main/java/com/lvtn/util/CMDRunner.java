@@ -105,14 +105,14 @@ public class CMDRunner implements CommandLineRunner {
         Room r1 = roomRepository.findById(1);
         Room r2 = roomRepository.findById(2);
         Room r3 = roomRepository.findById(3);
-        RoomDevice r1F = new RoomDevice(r1, fan, false, "R1F");
-        RoomDevice r1L = new RoomDevice(r1, light, false, "R1L");
-        RoomDevice r1S = new RoomDevice(r1, alarm, false, "R1A");
+        RoomDevice r1F = new RoomDevice(r1, fan, false, "01led01");
+        RoomDevice r1L = new RoomDevice(r1, light, false, "01led02");
+        RoomDevice r1S = new RoomDevice(r1, alarm, false, "01led03");
         roomDeviceRepository.save(r1F); roomDeviceRepository.save(r1L); roomDeviceRepository.save(r1S);
-        RoomDevice r2F = new RoomDevice(r2, fan, false, "R2F");
-        RoomDevice r2L = new RoomDevice(r2, light, false, "R2L");
-        RoomDevice r3F = new RoomDevice(r3, fan, false, "R3F");
-        RoomDevice r3L = new RoomDevice(r3, light, false, "R3L");
+        RoomDevice r2F = new RoomDevice(r2, fan, false, "02led01");
+        RoomDevice r2L = new RoomDevice(r2, light, false, "02led02");
+        RoomDevice r3F = new RoomDevice(r3, fan, false, "03led01");
+        RoomDevice r3L = new RoomDevice(r3, light, false, "03led02");
         roomDeviceRepository.save(r2F); roomDeviceRepository.save(r2L);
         roomDeviceRepository.save(r3F); roomDeviceRepository.save(r3L);
     }

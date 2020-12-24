@@ -23,14 +23,13 @@ var json = {
     time: new Date()
 };
 
-var j = [json, json];
 $("#btn").on('click', function () {
     $.ajax({
         type: "POST",
-        url: "/recover",
+        url: "/data/add",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: JSON.stringify(j),
+        data: JSON.stringify(json),
         success: function (data) {
             console.log(data);
         },

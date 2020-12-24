@@ -1,8 +1,9 @@
 package com.lvtn.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lvtn.exception.BadRequestException;
 import com.lvtn.model.Room;
-import com.lvtn.repository.RoomDeviceRepository;
 import com.lvtn.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,10 +13,91 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/room")
 public class RoomController {
+    private class DeviceData{
+        private String id;
+        private int roomId;
+        private String status;
+
+        public DeviceData() {
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public int getRoomId() {
+            return roomId;
+        }
+
+        public void setRoomId(int roomId) {
+            this.roomId = roomId;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+    }
+
+    private class SDData{
+        private int id;
+        private double t;
+        private double h;
+        private double s;
+        private double l;
+
+        public SDData() {
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public double getT() {
+            return t;
+        }
+
+        public void setT(double t) {
+            this.t = t;
+        }
+
+        public double getH() {
+            return h;
+        }
+
+        public void setH(double h) {
+            this.h = h;
+        }
+
+        public double getS() {
+            return s;
+        }
+
+        public void setS(double s) {
+            this.s = s;
+        }
+
+        public double getL() {
+            return l;
+        }
+
+        public void setL(double l) {
+            this.l = l;
+        }
+    }
     @Autowired
     private DataService dataService;
-    @Autowired
-    private RoomDeviceRepository roomDeviceRepository;
 
     @GetMapping("/{id}")
     public ModelAndView house(@PathVariable int id){
@@ -50,10 +132,22 @@ public class RoomController {
         return setting;
     }
 
-    @PostMapping("/{id}/setting/change")
+    @PostMapping("/setting/change")
     @ResponseBody
-    public String change(@RequestBody String data){
-        return "OK";
+    public String change(@RequestBody String body) throws BadRequestException{
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            SDData data = mapper.readValue(body, SDData.class);
+            if(dataService.changeSD(data.getId(), data.getT(), data.getH(), data.getS(), data.getL())){
+                return "OK";
+            }else{
+                throw new BadRequestException("StandardValue not found");
+            }
+        }catch (JsonProcessingException e){
+            e.printStackTrace();
+            throw new BadRequestException("Unexpected error!");
+
+        }
     }
 
     @GetMapping("/{id}/device")
@@ -63,12 +157,21 @@ public class RoomController {
                 .addObject("dvs", dataService.getDeviceList(id));
     }
 
-    @GetMapping("/{id}/{nid}")
+    @GetMapping("/device")
     @ResponseBody
-    public String changeDeviceState(@PathVariable("id")int id,
-                                    @PathVariable("nid")String nid) throws BadRequestException{
-        if(dataService.changeState(id, nid)){
-            return "OK";
-        }else throw new BadRequestException("Device not exist");
+    public String changeDeviceState(@RequestBody String body) throws BadRequestException{
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            DeviceData data = mapper.readValue(body, DeviceData.class);
+            boolean success = dataService.changeState(data.getId());
+            if(success){
+                return "OK";
+            }else{
+                throw new BadRequestException("Device not found");
+            }
+        }catch (JsonProcessingException e){
+            e.printStackTrace();
+            throw new BadRequestException("Unexpected error!");
+        }
     }
 }

@@ -51,7 +51,7 @@ public class DataController {
             JsonObject object = mapper.readValue(body, JsonObject.class);
             boolean success = dataService.add(object);
             if(success){
-                return "OK";
+                return mapper.writeValueAsString(dataService.getSD(object.room));
             }else{
                 return "ERR";
             }

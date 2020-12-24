@@ -198,13 +198,12 @@ public class DataService {
         }
     }
 
-    private RoomDevice findDevice(int roomId, String nid){
-        Room room = getRoom(roomId);
-        return  roomDeviceRepository.findByRoomAndAndNid(room, nid);
+    private RoomDevice findDevice(String nid){
+        return  roomDeviceRepository.findByNid(nid);
     }
 
-    public boolean changeState(int roomId, String nid){
-        RoomDevice device = findDevice(roomId, nid);
+    public boolean changeState(String nid){
+        RoomDevice device = findDevice(nid);
         if(device!=null){
             device.setStatus(!device.isStatus());
             roomDeviceRepository.save(device);
@@ -217,5 +216,18 @@ public class DataService {
     public StandardValue getSD(int room_id){
         Room room = getRoom(room_id);
         return sdRepository.getByRoom(room);
+    }
+
+    public boolean changeSD(int id, double t, double h, double s, double l){
+        StandardValue standardValue = getSD(id);
+        if(standardValue!=null){
+            standardValue.setT(t);
+            standardValue.setH(h);
+            standardValue.setS(s);
+            standardValue.setL(l);
+            return true;
+        }else{
+            return false;
+        }
     }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RoomDeviceRepository extends JpaRepository<RoomDevice, Long> {
     List<RoomDevice> getAllByRoom(Room room);
-    RoomDevice findByRoomAndAndNid(Room room, String nid);
+    RoomDevice findByNid(String nid);
 }

@@ -42,10 +42,4 @@ public class MainController {
             throw new BadRequestException("error");
         }
     }
-
-    @PostMapping("/device")
-    @ResponseBody
-    public String changeState(@RequestBody String body)throws BadRequestException{
-        return "OK";
-    }
 }
