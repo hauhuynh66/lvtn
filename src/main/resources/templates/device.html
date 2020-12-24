@@ -30,10 +30,10 @@
                                         <div class="col-4 text-center">
                                             <div th:unless="${device.device.name=='ALARM'}">
                                                 <label class="switch">
-                                                    <th:block th:if="${device.status}">
+                                                    <th:block th:if="${device.status}=='ON'">
                                                         <input type="checkbox" th:id="${'device_'+device.nid}" checked>
                                                     </th:block>
-                                                    <th:block th:if="${!device.status}">
+                                                    <th:block th:if="${!device.status}=='OFF'">
                                                         <input type="checkbox" th:id="${'device_'+device.nid}">
                                                     </th:block>
                                                     <span class="slider round"></span>

@@ -23,6 +23,13 @@ var json = {
     time: new Date()
 };
 
+var d = {
+    id : "01led01",
+    room : 1,
+    status : "ON"
+};
+
+
 $("#btn").on('click', function () {
     $.ajax({
         type: "POST",
