@@ -16,6 +16,7 @@ public class DHT {
     private Room room;
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date date;
+    private boolean sync;
 
     public DHT() {
     }
@@ -56,5 +57,21 @@ public class DHT {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public boolean isSync() {
+        return sync;
+    }
+
+    public void setSync(boolean sync) {
+        this.sync = sync;
     }
 }

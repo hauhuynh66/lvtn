@@ -49,7 +49,25 @@ public class DataController {
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonObject object = mapper.readValue(body, JsonObject.class);
-            boolean success = dataService.add(object);
+            boolean success = dataService.addSync(object);
+            if(success){
+                return mapper.writeValueAsString(dataService.getSD(object.room));
+            }else{
+                return "ERR";
+            }
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return "ERR";
+        }
+    }
+
+    @PostMapping("/add2")
+    @ResponseBody
+    public String add2(@RequestBody String body){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonObject object = mapper.readValue(body, JsonObject.class);
+            boolean success = dataService.addASync(object);
             if(success){
                 return mapper.writeValueAsString(dataService.getSD(object.room));
             }else{

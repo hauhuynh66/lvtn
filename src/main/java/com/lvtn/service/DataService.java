@@ -179,14 +179,31 @@ public class DataService {
         return report;
     }
 
-    public boolean add(JsonObject object){
+    public boolean addSync(JsonObject object){
         Room room = getRoom(object.getRoom());
         if(room ==null){
             return false;
         }else{
             DHT dht = new DHT(object.getTemp().getTemp(), object.getHumid().getHumid(), object.getTime(), room);
+            dht.setSync(true);
             dhtRepository.save(dht);
             Misc misc = new Misc(object.getSmoke().getSmoke(), object.getLight().getLight(), object.getTime(), room);
+            misc.setSync(true);
+            miscRepository.save(misc);
+            return true;
+        }
+    }
+
+    public boolean addASync(JsonObject object){
+        Room room = getRoom(object.getRoom());
+        if(room ==null){
+            return false;
+        }else{
+            DHT dht = new DHT(object.getTemp().getTemp(), object.getHumid().getHumid(), object.getTime(), room);
+            dht.setSync(false);
+            dhtRepository.save(dht);
+            Misc misc = new Misc(object.getSmoke().getSmoke(), object.getLight().getLight(), object.getTime(), room);
+            misc.setSync(false);
             miscRepository.save(misc);
             return true;
         }
@@ -194,7 +211,7 @@ public class DataService {
 
     public void addAll(List<JsonObject> objects){
         for(JsonObject object:objects){
-            add(object);
+            addSync(object);
         }
     }
 

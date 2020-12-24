@@ -16,6 +16,7 @@ public class Misc {
     private Room room;
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date date;
+    private boolean sync;
 
     public Misc() {
     }
@@ -56,5 +57,21 @@ public class Misc {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public boolean isSync() {
+        return sync;
+    }
+
+    public void setSync(boolean sync) {
+        this.sync = sync;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

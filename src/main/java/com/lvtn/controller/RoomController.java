@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class RoomController {
     private class DeviceData{
         private String id;
-        private int roomId;
+        private int room;
         private String status;
 
         public DeviceData() {
@@ -29,12 +29,12 @@ public class RoomController {
             this.id = id;
         }
 
-        public int getRoomId() {
-            return roomId;
+        public int getRoom() {
+            return room;
         }
 
-        public void setRoomId(int roomId) {
-            this.roomId = roomId;
+        public void setRoom(int room) {
+            this.room = room;
         }
 
         public String getStatus() {
@@ -157,7 +157,7 @@ public class RoomController {
                 .addObject("dvs", dataService.getDeviceList(id));
     }
 
-    @GetMapping("/device")
+    @PostMapping("/device")
     @ResponseBody
     public String changeDeviceState(@RequestBody String body) throws BadRequestException{
         ObjectMapper mapper = new ObjectMapper();

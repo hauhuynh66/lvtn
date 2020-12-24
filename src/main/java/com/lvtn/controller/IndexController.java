@@ -25,7 +25,7 @@ public class IndexController {
         return new ModelAndView("register");
     }
 
-    @GetMapping("/houses")
+    @GetMapping("/rooms")
     public ModelAndView houseList(){
         return new ModelAndView("hlist").addObject("n", dataService.count());
     }

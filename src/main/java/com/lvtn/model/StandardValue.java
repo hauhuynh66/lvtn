@@ -1,7 +1,6 @@
 package com.lvtn.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ public class StandardValue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @JsonIgnoreProperties
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "room_id")
     private Room room;
