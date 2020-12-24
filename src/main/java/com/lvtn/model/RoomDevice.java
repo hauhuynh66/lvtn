@@ -14,13 +14,13 @@ public class RoomDevice {
     @JoinColumn(name = "device_id")
     private Device device;
 
-    private boolean status;
+    private String status;
     private String nid;
 
     public RoomDevice() {
     }
 
-    public RoomDevice(Room room, Device device, boolean status, String nid) {
+    public RoomDevice(Room room, Device device, String status, String nid) {
         this.room = room;
         this.device = device;
         this.status = status;
@@ -51,11 +51,11 @@ public class RoomDevice {
         this.device = device;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

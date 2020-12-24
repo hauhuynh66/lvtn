@@ -163,7 +163,7 @@ public class RoomController {
         ObjectMapper mapper = new ObjectMapper();
         try {
             DeviceData data = mapper.readValue(body, DeviceData.class);
-            boolean success = dataService.changeState(data.getId());
+            boolean success = dataService.changeState(data.getId(), data.getStatus());
             if(success){
                 return "OK";
             }else{

@@ -219,10 +219,10 @@ public class DataService {
         return  roomDeviceRepository.findByNid(nid);
     }
 
-    public boolean changeState(String nid){
+    public boolean changeState(String nid, String status){
         RoomDevice device = findDevice(nid);
         if(device!=null){
-            device.setStatus(!device.isStatus());
+            device.setStatus(status);
             roomDeviceRepository.save(device);
             return true;
         }else {
