@@ -1,20 +1,13 @@
 package com.lvtn.controller;
 
 import com.lvtn.exception.BadRequestException;
-import com.lvtn.model.RS;
 import com.lvtn.model.Room;
-import com.lvtn.model.RoomDevice;
 import com.lvtn.repository.RoomDeviceRepository;
 import com.lvtn.service.DataService;
-import com.lvtn.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.io.File;
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/room")
@@ -53,20 +46,13 @@ public class RoomController {
     public ModelAndView setting(@PathVariable int id){
         Room room = dataService.getRoom(id);
         ModelAndView setting = new ModelAndView("setting").addObject("room", room);
-        try {
-            File file = new ClassPathResource("setting/"+ room.getId()+".json").getFile();
-            RS rs = Utils.getFromFile(file);
-            setting.addObject("rs", rs);
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
+        setting.addObject("rs", dataService.getSD(id));
         return setting;
     }
 
-    @GetMapping("/{id}/setting/change")
+    @PostMapping("/{id}/setting/change")
     @ResponseBody
-    public String change(@PathVariable("id") int id, @RequestBody String data){
-        System.out.println(data);
+    public String change(@RequestBody String data){
         return "OK";
     }
 

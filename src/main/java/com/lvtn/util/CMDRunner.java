@@ -31,13 +31,16 @@ public class CMDRunner implements CommandLineRunner {
     @Autowired
     private RoomDeviceRepository roomDeviceRepository;
     @Autowired
+    private SDRepository sdRepository;
+    @Autowired
     private Utils utils;
     @Override
     public void run(String... args) throws Exception {
         addUsers();
-        addHouses();
+        addRoom();
+        addSD();
         addDevices();
-        populate();
+        //populate();
         log.info("DONE");
     }
 
@@ -61,7 +64,7 @@ public class CMDRunner implements CommandLineRunner {
         }
     }
 
-    private void addHouses(){
+    private void addRoom(){
         Room[] rooms = new Room[4];
         rooms[0] = new Room("One");
         roomRepository.save(rooms[0]);
@@ -80,6 +83,16 @@ public class CMDRunner implements CommandLineRunner {
                 utils.encoder(5).encode("Hauhuynh"));
         userRepository.save(u1);
         userRepository.save(u2);
+    }
+
+    private void addSD(){
+        List<Room> rooms = roomRepository.findAll();
+        StandardValue sd1 = new StandardValue(rooms.get(0), 30, 80, 300, 500);
+        sdRepository.save(sd1);
+        StandardValue sd2 = new StandardValue(rooms.get(1), 35, 90, 320, 700);
+        sdRepository.save(sd2);
+        StandardValue sd3 = new StandardValue(rooms.get(2), 33, 70, 260, 600);
+        sdRepository.save(sd3);
     }
 
     private void addDevices(){
@@ -102,6 +115,7 @@ public class CMDRunner implements CommandLineRunner {
         RoomDevice r3L = new RoomDevice(r3, light, false, "R3L");
         roomDeviceRepository.save(r2F); roomDeviceRepository.save(r2L);
         roomDeviceRepository.save(r3F); roomDeviceRepository.save(r3L);
-
     }
+
+
 }

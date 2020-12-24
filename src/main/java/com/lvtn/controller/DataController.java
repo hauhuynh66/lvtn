@@ -43,13 +43,13 @@ public class DataController {
         return utils.objectMapper(dataService.getTopMisc(id));
     }
 
-    @PostMapping("/add/{id}")
+    @PostMapping("/add")
     @ResponseBody
-    public String add(@RequestBody String body, @PathVariable("id")int room_id){
+    public String add(@RequestBody String body){
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonObject object = mapper.readValue(body, JsonObject.class);
-            boolean success = dataService.add(room_id, object);
+            boolean success = dataService.add(object);
             if(success){
                 return "OK";
             }else{

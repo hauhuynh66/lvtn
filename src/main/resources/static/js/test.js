@@ -1,4 +1,5 @@
 var json = {
+    room: 1,
     temp: {
         temp: 27,
         x: false,
@@ -21,13 +22,15 @@ var json = {
     },
     time: new Date()
 };
+
+var j = [json, json];
 $("#btn").on('click', function () {
     $.ajax({
         type: "POST",
-        url: "/data/add/1",
+        url: "/recover",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: JSON.stringify(json),
+        data: JSON.stringify(j),
         success: function (data) {
             console.log(data);
         },

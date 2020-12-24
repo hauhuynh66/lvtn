@@ -3,6 +3,7 @@ package com.lvtn.model;
 import java.util.Date;
 
 public class JsonObject {
+    public int room;
     public class temp {
         private double temp;
         private boolean x;
@@ -183,5 +184,13 @@ public class JsonObject {
     @Override
     public String toString() {
         return temp.temp+"-"+humid.humid+"-"+smoke.smoke+"-"+light.light;
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
     }
 }

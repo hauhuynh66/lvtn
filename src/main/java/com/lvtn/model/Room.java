@@ -7,8 +7,8 @@ import java.util.Set;
 @Entity
 public class Room {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String name;
     @OneToMany(mappedBy = "room")
     private List<DHT> dhtList;
@@ -16,7 +16,8 @@ public class Room {
     private List<Misc> miscList;
     @OneToMany(mappedBy = "room")
     private Set<RoomDevice> devices;
-
+    @OneToOne
+    private StandardValue standardValue;
     public Room() {
     }
 
@@ -24,7 +25,7 @@ public class Room {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -62,5 +63,13 @@ public class Room {
 
     public void setDevices(Set<RoomDevice> devices) {
         this.devices = devices;
+    }
+
+    public StandardValue getStandardValue() {
+        return standardValue;
+    }
+
+    public void setStandardValue(StandardValue standardValue) {
+        this.standardValue = standardValue;
     }
 }

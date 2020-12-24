@@ -1,10 +1,7 @@
 package com.lvtn.service;
 
 import com.lvtn.model.*;
-import com.lvtn.repository.DHTRepository;
-import com.lvtn.repository.MiscRepository;
-import com.lvtn.repository.RoomDeviceRepository;
-import com.lvtn.repository.RoomRepository;
+import com.lvtn.repository.*;
 import com.lvtn.util.Formatter;
 import com.lvtn.util.Utils;
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +26,8 @@ public class DataService {
     private RoomRepository roomRepository;
     @Autowired
     private RoomDeviceRepository roomDeviceRepository;
+    @Autowired
+    private SDRepository sdRepository;
 
     public long count(){
         return roomRepository.count();
@@ -180,8 +179,8 @@ public class DataService {
         return report;
     }
 
-    public boolean add(int roomId, JsonObject object){
-        Room room = getRoom(roomId);
+    public boolean add(JsonObject object){
+        Room room = getRoom(object.getRoom());
         if(room ==null){
             return false;
         }else{
@@ -190,6 +189,12 @@ public class DataService {
             Misc misc = new Misc(object.getSmoke().getSmoke(), object.getLight().getLight(), object.getTime(), room);
             miscRepository.save(misc);
             return true;
+        }
+    }
+
+    public void addAll(List<JsonObject> objects){
+        for(JsonObject object:objects){
+            add(object);
         }
     }
 
@@ -207,5 +212,10 @@ public class DataService {
         }else {
             return false;
         }
+    }
+
+    public StandardValue getSD(int room_id){
+        Room room = getRoom(room_id);
+        return sdRepository.getByRoom(room);
     }
 }
