@@ -33,10 +33,10 @@ var d = {
 $("#btn").on('click', function () {
     $.ajax({
         type: "POST",
-        url: "/data/add",
+        url: "/room/device",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: JSON.stringify(json),
+        data: JSON.stringify(d),
         success: function (data) {
             console.log(data);
         },

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/room")
 public class RoomController {
-    private class DeviceData{
+    private static class DeviceData{
         private String id;
         private int room;
         private String status;
@@ -46,7 +46,7 @@ public class RoomController {
         }
     }
 
-    private class SDData{
+    private static class SDData{
         private int id;
         private double t;
         private double h;
@@ -163,12 +163,12 @@ public class RoomController {
         ObjectMapper mapper = new ObjectMapper();
         try {
             DeviceData data = mapper.readValue(body, DeviceData.class);
-            boolean success = dataService.changeState(data.getId(), data.getStatus());
-            if(success){
+            if(dataService.changeState(data.getId(), data.getStatus())){
                 return "OK";
             }else{
-                throw new BadRequestException("Device not found");
+                throw new BadRequestException("Device not found!");
             }
+
         }catch (JsonProcessingException e){
             e.printStackTrace();
             throw new BadRequestException("Unexpected error!");

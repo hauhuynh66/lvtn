@@ -216,7 +216,7 @@ public class DataService {
     }
 
     private RoomDevice findDevice(String nid){
-        return  roomDeviceRepository.findByNid(nid);
+        return roomDeviceRepository.findByNid(nid);
     }
 
     public boolean changeState(String nid, String status){
