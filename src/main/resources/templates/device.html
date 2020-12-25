@@ -26,15 +26,16 @@
                                     <div class="row">
                                         <div class="col-8 text-center">
                                             <h4><span th:text="${device.device.name}"></span></h4>
+                                            <h4><span th:text="${device.room.id}" id="room_id" hidden></span></h4>
                                         </div>
                                         <div class="col-4 text-center">
                                             <div th:unless="${device.device.name=='ALARM'}">
-                                                <label class="switch">
+                                                <label class="switch device" th:id="${'device_'+device.nid}">
                                                     <th:block th:if="${device.status}=='ON'">
-                                                        <input type="checkbox" th:id="${'device_'+device.nid}" checked>
+                                                        <input type="checkbox" id="cb" checked>
                                                     </th:block>
                                                     <th:block th:if="${!device.status}=='OFF'">
-                                                        <input type="checkbox" th:id="${'device_'+device.nid}">
+                                                        <input type="checkbox" id="cb">
                                                     </th:block>
                                                     <span class="slider round"></span>
                                                 </label>

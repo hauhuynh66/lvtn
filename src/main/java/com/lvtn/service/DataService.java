@@ -184,7 +184,7 @@ public class DataService {
         if(room ==null){
             return false;
         }else{
-            DHT dht = new DHT(object.getTemp().getTemp(), object.getHumid().getHumid(), object.getTime(), room);
+            DHT dht = new DHT(object.getTemp().getTemp(), object.getHumi().getHumi(), object.getTime(), room);
             dht.setSync(true);
             dhtRepository.save(dht);
             Misc misc = new Misc(object.getSmoke().getSmoke(), object.getLight().getLight(), object.getTime(), room);
@@ -199,7 +199,7 @@ public class DataService {
         if(room ==null){
             return false;
         }else{
-            DHT dht = new DHT(object.getTemp().getTemp(), object.getHumid().getHumid(), object.getTime(), room);
+            DHT dht = new DHT(object.getTemp().getTemp(), object.getHumi().getHumi(), object.getTime(), room);
             dht.setSync(false);
             dhtRepository.save(dht);
             Misc misc = new Misc(object.getSmoke().getSmoke(), object.getLight().getLight(), object.getTime(), room);

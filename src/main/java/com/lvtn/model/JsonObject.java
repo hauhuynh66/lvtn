@@ -36,20 +36,20 @@ public class JsonObject {
             this.y = y;
         }
     }
-    public class humid{
-        private double humid;
+    public class humi {
+        private double humi;
         private boolean x;
         private boolean y;
 
-        public humid() {
+        public humi() {
         }
 
-        public double getHumid() {
-            return humid;
+        public double getHumi() {
+            return humi;
         }
 
-        public void setHumid(double humid) {
-            this.humid = humid;
+        public void setHumi(double humi) {
+            this.humi = humi;
         }
 
         public boolean isX() {
@@ -133,7 +133,7 @@ public class JsonObject {
         }
     }
     private temp temp;
-    private humid humid;
+    private humi humi;
     private smoke smoke;
     private light light;
     private Date time;
@@ -149,12 +149,12 @@ public class JsonObject {
         this.temp = temp;
     }
 
-    public JsonObject.humid getHumid() {
-        return humid;
+    public humi getHumi() {
+        return humi;
     }
 
-    public void setHumid(JsonObject.humid humid) {
-        this.humid = humid;
+    public void setHumi(humi humi) {
+        this.humi = humi;
     }
 
     public JsonObject.smoke getSmoke() {
@@ -183,7 +183,7 @@ public class JsonObject {
 
     @Override
     public String toString() {
-        return temp.temp+"-"+humid.humid+"-"+smoke.smoke+"-"+light.light;
+        return temp.temp+"-"+ humi.humi +"-"+smoke.smoke+"-"+light.light;
     }
 
     public int getRoom() {
