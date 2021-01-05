@@ -5,9 +5,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.lvtn.exception.BadRequestException;
+import com.lvtn.model.DHT;
 import com.lvtn.model.JsonObject;
 import com.lvtn.model.SDSerializer;
 import com.lvtn.model.StandardValue;
+import com.lvtn.service.AlertService;
 import com.lvtn.service.DataService;
 import com.lvtn.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,8 @@ public class DataController {
     }
     @Autowired
     private DataService dataService;
+    @Autowired
+    private AlertService alertService;
 
     @Autowired
     private Utils utils;

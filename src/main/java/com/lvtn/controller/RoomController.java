@@ -7,6 +7,7 @@ import com.lvtn.model.Room;
 import com.lvtn.service.DataService;
 import com.lvtn.service.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -167,7 +168,14 @@ public class RoomController {
             map.put("id", deviceData.id);
             map.put("room", deviceData.room);
             map.put("status", deviceData.status);
-            return restService.postRequest("http://192.168.137.1:4000/receive_device",map);
+            HttpStatus status = restService.postRequest("http://192.168.137.1:4000/receive_device",map);
+            if(status==HttpStatus.OK){
+                String s = deviceData.status.equals("ON")?"OFF":"ON";
+                dataService.changeState(deviceData.id, s);
+                return "OK";
+            }else{
+                throw new BadRequestException("Error");
+            }
         }catch (JsonProcessingException e){
             throw new BadRequestException(e.getMessage());
         }

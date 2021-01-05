@@ -27,13 +27,13 @@ public class RestService {
         }
     }
 
-    public String postRequest(String url, Map<String, Object> data){
+    public HttpStatus postRequest(String url, Map<String, Object> data){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(data, headers);
         ResponseEntity<String> response = this.restTemplate.postForEntity(url, entity, String.class);
         if(response.getStatusCode()==HttpStatus.CREATED){
-            return response.getBody();
+            return response.getStatusCode();
         }else{
             return null;
         }
