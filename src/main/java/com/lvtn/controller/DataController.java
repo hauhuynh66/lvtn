@@ -3,8 +3,11 @@ package com.lvtn.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.lvtn.exception.BadRequestException;
 import com.lvtn.model.JsonObject;
+import com.lvtn.model.SDSerializer;
+import com.lvtn.model.StandardValue;
 import com.lvtn.service.DataService;
 import com.lvtn.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,37 +64,41 @@ public class DataController {
 
     @PostMapping("/add")
     @ResponseBody
-    public String add(@RequestBody String body){
+    public String add(@RequestBody String body)throws BadRequestException{
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonObject object = mapper.readValue(body, JsonObject.class);
             boolean success = dataService.addSync(object);
             if(success){
+                SimpleModule module = new SimpleModule();
+                module.addSerializer(StandardValue.class, new SDSerializer());
+                mapper.registerModule(module);
                 return mapper.writeValueAsString(dataService.getSD(object.room));
             }else{
-                return "ERR";
+                throw new BadRequestException("Unexpected Error");
             }
         }catch (IOException e){
-            System.out.println(e.getMessage());
-            return "ERR";
+            throw new BadRequestException(e.getMessage());
         }
     }
 
     @PostMapping("/add2")
     @ResponseBody
-    public String add2(@RequestBody String body){
+    public String add2(@RequestBody String body)throws BadRequestException{
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonObject object = mapper.readValue(body, JsonObject.class);
             boolean success = dataService.addASync(object);
             if(success){
+                SimpleModule module = new SimpleModule();
+                module.addSerializer(StandardValue.class, new SDSerializer());
+                mapper.registerModule(module);
                 return mapper.writeValueAsString(dataService.getSD(object.room));
             }else{
-                return "ERR";
+                throw new BadRequestException("Unexpected Error");
             }
         }catch (IOException e){
-            System.out.println(e.getMessage());
-            return "ERR";
+            throw new BadRequestException(e.getMessage());
         }
     }
 

@@ -40,7 +40,7 @@ public class CMDRunner implements CommandLineRunner {
         addRoom();
         addSD();
         addDevices();
-        populate();
+        //populate();
         log.info("DONE");
     }
 
