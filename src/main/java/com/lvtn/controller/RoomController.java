@@ -5,44 +5,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lvtn.exception.BadRequestException;
 import com.lvtn.model.Room;
 import com.lvtn.service.DataService;
+import com.lvtn.service.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/room")
 public class RoomController {
     private static class DeviceData{
-        private String id;
-        private int room;
-        private String status;
+        public String id;
+        public int room;
+        public String status;
 
         public DeviceData() {
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public int getRoom() {
-            return room;
-        }
-
-        public void setRoom(int room) {
-            this.room = room;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
         }
     }
 
@@ -98,6 +78,8 @@ public class RoomController {
     }
     @Autowired
     private DataService dataService;
+    @Autowired
+    private RestService restService;
 
     @GetMapping("/{id}")
     public ModelAndView house(@PathVariable int id){
@@ -163,7 +145,7 @@ public class RoomController {
         ObjectMapper mapper = new ObjectMapper();
         try {
             DeviceData data = mapper.readValue(body, DeviceData.class);
-            if(dataService.changeState(data.getId(), data.getStatus())){
+            if(dataService.changeState(data.id, data.status)){
                 return "OK";
             }else{
                 throw new BadRequestException("Device not found!");
@@ -172,6 +154,22 @@ public class RoomController {
         }catch (JsonProcessingException e){
             e.printStackTrace();
             throw new BadRequestException("Unexpected error!");
+        }
+    }
+
+    @PostMapping("/device/change")
+    @ResponseBody
+    public String changeDevice(@RequestBody String body)throws BadRequestException{
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            DeviceData deviceData = mapper.readValue(body, DeviceData.class);
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", deviceData.id);
+            map.put("room", deviceData.room);
+            map.put("status", deviceData.status);
+            return restService.postRequest("http://192.168.137.1:4000/receive_device",map);
+        }catch (JsonProcessingException e){
+            throw new BadRequestException(e.getMessage());
         }
     }
 }

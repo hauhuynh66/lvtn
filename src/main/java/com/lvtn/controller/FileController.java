@@ -1,5 +1,6 @@
 package com.lvtn.controller;
 
+import com.lvtn.model.ListReport;
 import com.lvtn.model.TimeReport;
 import com.lvtn.service.DataService;
 import com.lvtn.service.FileStorageService;
@@ -41,7 +42,8 @@ public class FileController {
         Date from = new Date();
         Date to = new Date(from.getTime()+86400000);
         TimeReport rp = dataService.basicReport(id, from, to);
-        File file = excel.writeToExcel(rp);
+        ListReport lp = dataService.extraReport(id, from, to);
+        File file = excel.writeToExcel(rp, lp);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename="+file.getName())
                 .body(new InputStreamResource(new FileInputStream(file)));

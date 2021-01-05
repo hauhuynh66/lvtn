@@ -5,8 +5,8 @@ var json = {
         x: false,
         y: false
     },
-    humid: {
-        humid: 80,
+    humi: {
+        humi: 80,
         x: false,
         y: false
     },
