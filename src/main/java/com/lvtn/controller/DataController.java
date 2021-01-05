@@ -12,11 +12,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 @RequestMapping("/data")
 public class DataController {
+    public static class RObject{
+        public int room;
+        public double temp;
+        public double humi;
+        public double light;
+        public double smoke;
+        public Date time;
+
+        public RObject() {
+        }
+    }
     @Autowired
     private DataService dataService;
 
@@ -95,8 +107,8 @@ public class DataController {
         System.out.println(body);
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            List<JsonObject> objects = objectMapper.readValue(body, new TypeReference<List<JsonObject>>(){});
-            dataService.addAll(objects);
+            List<RObject> objects = objectMapper.readValue(body, new TypeReference<List<RObject>>(){});
+            dataService.rec(objects);
             return "OK";
         } catch (JsonProcessingException e) {
             e.printStackTrace();

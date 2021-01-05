@@ -1,5 +1,6 @@
 package com.lvtn.service;
 
+import com.lvtn.controller.DataController;
 import com.lvtn.model.*;
 import com.lvtn.repository.*;
 import com.lvtn.util.Formatter;
@@ -194,6 +195,21 @@ public class DataService {
         }
     }
 
+    public boolean addR(DataController.RObject rObject){
+        Room room = getRoom(rObject.room);
+        if(room ==null){
+            return false;
+        }else{
+            DHT dht = new DHT(rObject.temp, rObject.humi, rObject.time, room);
+            dht.setSync(true);
+            dhtRepository.save(dht);
+            Misc misc = new Misc(rObject.smoke, rObject.light, rObject.time, room);
+            misc.setSync(true);
+            miscRepository.save(misc);
+            return true;
+        }
+    }
+
     public boolean addASync(JsonObject object){
         Room room = getRoom(object.getRoom());
         if(room ==null){
@@ -212,6 +228,12 @@ public class DataService {
     public void addAll(List<JsonObject> objects){
         for(JsonObject object:objects){
             addSync(object);
+        }
+    }
+
+    public void rec(List<DataController.RObject> objects){
+        for(DataController.RObject rObject: objects){
+            addR(rObject);
         }
     }
 

@@ -16,8 +16,6 @@ public class Room {
     private List<Misc> miscList;
     @OneToMany(mappedBy = "room")
     private Set<RoomDevice> devices;
-    @OneToOne
-    private StandardValue standardValue;
     public Room() {
     }
 
@@ -63,13 +61,5 @@ public class Room {
 
     public void setDevices(Set<RoomDevice> devices) {
         this.devices = devices;
-    }
-
-    public StandardValue getStandardValue() {
-        return standardValue;
-    }
-
-    public void setStandardValue(StandardValue standardValue) {
-        this.standardValue = standardValue;
     }
 }

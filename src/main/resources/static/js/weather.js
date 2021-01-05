@@ -76,6 +76,7 @@ function getData() {
         success: function (data) {
             var res = jQuery.parseJSON(data);
             res.reverse();
+            console.log(res);
             jQuery(res).each(function (i, value) {
                 addData(tchart, i, value.temp);
                 addData(hchart, i, value.humid);
@@ -93,6 +94,7 @@ function update() {
         url: "/data/top/"+house_id+"/dht",
         success: function (data) {
             var res = jQuery.parseJSON(data);
+            console.log(res);
             addData(tchart, m++, res.temp);
             removeData(tchart, 0);
             addData(hchart, m++, res.humid);

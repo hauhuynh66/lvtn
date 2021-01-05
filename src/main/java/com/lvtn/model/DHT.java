@@ -1,5 +1,7 @@
 package com.lvtn.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,6 +13,7 @@ public class DHT {
     private int id;
     private double temp;
     private double humid;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "house_id", nullable = false)
     private Room room;
