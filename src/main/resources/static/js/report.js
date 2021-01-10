@@ -46,7 +46,8 @@ function extra(from, to){
             var res = jQuery.parseJSON(data);
             $.each(res.list,function (i,item) {
                 console.log(item);
-                var row = [item.des, item.data.length];
+                var btn = "<button class='form-control'><i class='fas fa-plus'></i></button>";
+                var row = [item.des, item.data.length, btn];
                 ex.row.add(row).draw(false);
             });
         },

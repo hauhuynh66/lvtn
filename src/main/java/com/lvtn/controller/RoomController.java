@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lvtn.exception.BadRequestException;
 import com.lvtn.model.Room;
+import com.lvtn.model.RoomDevice;
 import com.lvtn.service.DataService;
 import com.lvtn.service.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,10 +165,11 @@ public class RoomController {
         ObjectMapper mapper = new ObjectMapper();
         try {
             DeviceData deviceData = mapper.readValue(body, DeviceData.class);
+            RoomDevice device = dataService.getDevice(deviceData.id);
             Map<String, Object> map = new HashMap<>();
             map.put("id", deviceData.id);
             map.put("room", deviceData.room);
-            map.put("status", deviceData.status);
+            map.put("status", device.getStatus());
             HttpStatus status = restService.postRequest("http://192.168.137.1:4000/receive_device",map);
             if(status==HttpStatus.OK){
                 String s = deviceData.status.equals("ON")?"OFF":"ON";

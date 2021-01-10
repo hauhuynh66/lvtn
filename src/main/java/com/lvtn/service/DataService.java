@@ -4,15 +4,11 @@ import com.lvtn.controller.DataController;
 import com.lvtn.model.*;
 import com.lvtn.repository.*;
 import com.lvtn.util.Formatter;
-import com.lvtn.util.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -153,29 +149,23 @@ public class DataService {
         ListReport report = new ListReport(from, to, new ArrayList<>());
         if(room !=null) {
             report.setFrom(from); report.setTo(to);
-            try {
-                File file = new ClassPathResource("setting/"+ room.getId()+".json").getFile();
-                RS rs = Utils.getFromFile(file);
-                assert rs!=null;
-                ListInfo infoT = new ListInfo("Temperature Greater Than Standard Value");
-                infoT.setDHT(dhtRepository.
-                        getAllByRoomAndDateGreaterThanAndDateLessThanAndTempGreaterThan(room, from, to, rs.getT()), 1);
-                ListInfo infoH = new ListInfo("Humidity Greater Than Standard Value");
-                infoH.setDHT(dhtRepository
-                        .getAllByRoomAndDateGreaterThanAndDateLessThanAndHumidGreaterThan(room, from, to, rs.getH()), 2);
-                ListInfo infoS = new ListInfo("Smoke Density Greater Than Standard Value");
-                infoS.setMisc(miscRepository.
-                        getAllByRoomAndDateGreaterThanAndDateLessThanAndSmokeGreaterThan(room, from, to, rs.getS()), 1);
-                ListInfo infoL = new ListInfo("Light Intensity Greater Than Standard Value");
-                infoL.setMisc(miscRepository
-                        .getAllByRoomAndDateGreaterThanAndDateLessThanAndLightGreaterThan(room, from, to, rs.getL()), 2);
-                report.getList().add(infoT);
-                report.getList().add(infoH);
-                report.getList().add(infoS);
-                report.getList().add(infoL);
-            }catch (IOException e){
-                System.out.println(e.getMessage());
-            }
+            StandardValue rs = getSD(roomId);
+            ListInfo infoT = new ListInfo("Temperature Greater Than Standard Value");
+            infoT.setDHT(dhtRepository.
+                    getAllByRoomAndDateGreaterThanAndDateLessThanAndTempGreaterThan(room, from, to, rs.getT()), 1);
+            ListInfo infoH = new ListInfo("Humidity Greater Than Standard Value");
+            infoH.setDHT(dhtRepository
+                    .getAllByRoomAndDateGreaterThanAndDateLessThanAndHumidGreaterThan(room, from, to, rs.getH()), 2);
+            ListInfo infoS = new ListInfo("Smoke Density Greater Than Standard Value");
+            infoS.setMisc(miscRepository.
+                    getAllByRoomAndDateGreaterThanAndDateLessThanAndSmokeGreaterThan(room, from, to, rs.getS()), 1);
+            ListInfo infoL = new ListInfo("Light Intensity Greater Than Standard Value");
+            infoL.setMisc(miscRepository
+                    .getAllByRoomAndDateGreaterThanAndDateLessThanAndLightGreaterThan(room, from, to, rs.getL()), 2);
+            report.getList().add(infoT);
+            report.getList().add(infoH);
+            report.getList().add(infoS);
+            report.getList().add(infoL);
         }
         return report;
     }
@@ -268,5 +258,9 @@ public class DataService {
         }else{
             return false;
         }
+    }
+
+    public RoomDevice getDevice(String nid){
+        return roomDeviceRepository.findByNid(nid);
     }
 }

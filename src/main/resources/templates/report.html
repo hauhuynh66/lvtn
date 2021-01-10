@@ -98,11 +98,14 @@
                             <table class="table table-bordered dataTable" id="extra_report" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                 <thead class="text-center">
                                 <tr role="row">
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 60%;">
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 50%;">
                                         <span>Name</span>
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 40%;">
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 25%;">
                                         <span>N</span>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 25%;">
+                                        <span>Ex.</span>
                                     </th>
                                 </tr>
                                 </thead>
@@ -114,6 +117,22 @@
                 </div>
             </div>
             <div th:include="fragment::footer"></div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="ex-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Extra</h3>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="logout-btn">Confirm</button>
+                    <button class="btn btn-outline-info" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
