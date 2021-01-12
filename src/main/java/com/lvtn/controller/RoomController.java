@@ -2,9 +2,9 @@ package com.lvtn.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.lvtn.exception.BadRequestException;
-import com.lvtn.model.Room;
-import com.lvtn.model.RoomDevice;
+import com.lvtn.model.*;
 import com.lvtn.service.DataService;
 import com.lvtn.service.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,17 @@ public class RoomController {
     private static class DeviceData{
         public String id;
         public int room;
-        public String status;
 
         public DeviceData() {
+        }
+    }
+
+    private static class DeviceStatus{
+        public String id;
+        public int room;
+        public String status;
+
+        public DeviceStatus() {
         }
     }
 
@@ -116,10 +124,27 @@ public class RoomController {
         return setting;
     }
 
+    @GetMapping("/sd")
+    @ResponseBody
+    public String getSD(@RequestParam("id") int id){
+        ObjectMapper mapper = new ObjectMapper();
+        StandardValue sd = dataService.getSD(id);
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(StandardValue.class, new SDSerializer());
+        mapper.registerModule(module);
+        try {
+            return mapper.writeValueAsString(sd);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @PostMapping("/setting/change")
     @ResponseBody
     public String change(@RequestBody String body) throws BadRequestException{
         ObjectMapper mapper = new ObjectMapper();
+        System.out.println(body);
         try {
             SDData data = mapper.readValue(body, SDData.class);
             if(dataService.changeSD(data.getId(), data.getT(), data.getH(), data.getS(), data.getL())){
@@ -146,7 +171,7 @@ public class RoomController {
     public String changeDeviceState(@RequestBody String body) throws BadRequestException{
         ObjectMapper mapper = new ObjectMapper();
         try {
-            DeviceData data = mapper.readValue(body, DeviceData.class);
+            DeviceStatus data = mapper.readValue(body, DeviceStatus.class);
             if(dataService.changeState(data.id, data.status)){
                 return "OK";
             }else{
@@ -172,7 +197,7 @@ public class RoomController {
             map.put("status", device.getStatus());
             HttpStatus status = restService.postRequest("http://192.168.137.1:4000/receive_device",map);
             if(status==HttpStatus.OK){
-                String s = deviceData.status.equals("ON")?"OFF":"ON";
+                String s = device.getStatus().equals("ON")?"OFF":"ON";
                 dataService.changeState(deviceData.id, s);
                 return "OK";
             }else{

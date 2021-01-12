@@ -254,6 +254,7 @@ public class DataService {
             standardValue.setH(h);
             standardValue.setS(s);
             standardValue.setL(l);
+            sdRepository.save(standardValue);
             return true;
         }else{
             return false;

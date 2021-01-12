@@ -1,11 +1,9 @@
 $(".switch.device").on('click', function () {
     var s = $(this).attr('id');
     var id = s.split("_")[1];
-    var status = $("#status").text();
     var data = {
         room : $("#room_id").text(),
-        id : id,
-        status : status
+        id : id
     };
     /*$.ajax({
         type: "POST",
