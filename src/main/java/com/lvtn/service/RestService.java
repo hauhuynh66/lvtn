@@ -32,10 +32,6 @@ public class RestService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(data, headers);
         ResponseEntity<String> response = this.restTemplate.postForEntity(url, entity, String.class);
-        if(response.getStatusCode()==HttpStatus.CREATED){
-            return response.getStatusCode();
-        }else{
-            return null;
-        }
+        return response.getStatusCode();
     }
 }

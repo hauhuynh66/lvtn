@@ -30,15 +30,23 @@
                                         </div>
                                         <div class="col-4 text-center">
                                             <div th:unless="${device.device.name=='ALARM'}">
-                                                <label class="switch device" th:id="${'device_'+device.nid}">
+                                                <label class="switch">
                                                     <span th:text="${device.status}" th:id="status" hidden></span>
                                                     <th:block th:if="${device.status}=='ON'">
-                                                        <input type="checkbox" id="cb" checked>
+                                                        <input type="checkbox" class="device" th:id="${'device_'+device.nid}" checked>
                                                     </th:block>
                                                     <th:block th:if="${device.status}=='OFF'">
-                                                        <input type="checkbox" id="cb">
+                                                        <input type="checkbox" class="device" th:id="${'device_'+device.nid}">
                                                     </th:block>
                                                     <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                            <div th:if="${device.device.name=='ALARM'}">
+                                                <label class="switch">
+                                                    <span th:text="${device.status}" th:id="status" hidden></span>
+                                                    <th:block th:if="${device.status}=='ON'">
+                                                        <button class="form-control btn-success device" th:id="${'device_'+device.nid}">OFF</button>
+                                                    </th:block>
                                                 </label>
                                             </div>
                                         </div>
