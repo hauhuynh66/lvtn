@@ -100,6 +100,14 @@ function getData() {
     });
 }
 
+$("#getH").on('click', function () {
+
+});
+
+function getHistory(from, to) {
+
+}
+
 function update() {
     $.ajax({
         type: "GET",
