@@ -1,7 +1,7 @@
 var json = {
     room: 1,
     temp: {
-        temp: 27,
+        temp: 36,
         x: false,
         y: false
     },

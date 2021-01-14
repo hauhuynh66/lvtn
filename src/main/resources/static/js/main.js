@@ -3,6 +3,29 @@ $("#menu-collapse").on('click',function () {
     toggle++;
     sidebarToggle(toggle%2);
 });
+var id = $("#house_id").text();
+
+$(document).ready(function () {
+    getAlert();
+    setInterval(getAlert,10000);
+});
+
+function getAlert() {
+    $.ajax({
+        type : "GET",
+        url : "http://localhost:8400/data/"+id+"/alert",
+        success : function (data) {
+            var res = JSON.parse(data);
+            $("#t_a").text(res.nT);
+            $("#t_h").text(res.nH);
+            $("#t_l").text(res.nL);
+            $("#t_s").text(res.nS);
+        },
+        error : function (e) {
+            console.log(e);
+        }
+    });
+}
 
 function sidebarToggle(i) {
     if(i===1){

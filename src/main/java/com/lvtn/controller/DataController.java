@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.lvtn.exception.BadRequestException;
-import com.lvtn.model.DHT;
 import com.lvtn.model.JsonObject;
 import com.lvtn.model.SDSerializer;
 import com.lvtn.model.StandardValue;
@@ -73,6 +72,7 @@ public class DataController {
         try {
             JsonObject object = mapper.readValue(body, JsonObject.class);
             boolean success = dataService.addSync(object);
+            dataService.alert(object);
             if(success){
                 SimpleModule module = new SimpleModule();
                 module.addSerializer(StandardValue.class, new SDSerializer());
@@ -125,6 +125,12 @@ public class DataController {
             e.printStackTrace();
             throw new BadRequestException("error");
         }
+    }
+
+    @GetMapping("/{id}/alert")
+    @ResponseBody
+    public String alert(@PathVariable("id")int id){
+        return dataService.getWarning(id);
     }
 
 }

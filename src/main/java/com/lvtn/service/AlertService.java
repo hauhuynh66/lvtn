@@ -46,4 +46,12 @@ public class AlertService {
             return false;
         }
     }
+
+    public int get(String key){
+        try {
+            return cache.get(key);
+        } catch (ExecutionException e) {
+            return 0;
+        }
+    }
 }

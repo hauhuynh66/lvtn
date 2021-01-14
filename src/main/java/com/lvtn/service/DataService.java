@@ -1,5 +1,7 @@
 package com.lvtn.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lvtn.controller.DataController;
 import com.lvtn.model.*;
 import com.lvtn.repository.*;
@@ -25,6 +27,8 @@ public class DataService {
     private RoomDeviceRepository roomDeviceRepository;
     @Autowired
     private SDRepository sdRepository;
+    @Autowired
+    private AlertService alertService;
 
     public long count(){
         return roomRepository.count();
@@ -261,7 +265,57 @@ public class DataService {
         }
     }
 
+    public void alert(JsonObject object){
+        Room room = getRoom(object.getRoom());
+        DHT dht = dhtRepository.getTopByRoomOrderByDateDesc(room);
+        Misc misc = miscRepository.getTopByRoomOrderByDateDesc(room);
+        if(Math.abs(dht.getTemp()-object.getTemp().getTemp())>5){
+            alertService.load(object.getRoom()+"-temp");
+        }else{
+            alertService.clear(object.getRoom()+"-temp");
+        }
+        if(Math.abs(dht.getHumid()-object.getHumi().getHumi())>10){
+            alertService.load(object.getRoom()+"-humid");
+        }else{
+            alertService.clear(object.getRoom()+"-humid");
+        }
+        if(Math.abs(misc.getSmoke()-object.getSmoke().getSmoke())>100){
+            alertService.load(object.getRoom()+"-smoke");
+        }else{
+            alertService.clear(object.getRoom()+"-smoke");
+        }
+        if(Math.abs(misc.getLight()-object.getLight().getLight())>100){
+            alertService.load(object.getRoom()+"-light");
+        }else{
+            alertService.clear(object.getRoom()+"-light");
+        }
+    }
+
     public RoomDevice getDevice(String nid){
         return roomDeviceRepository.findByNid(nid);
+    }
+
+    public static class Warning{
+        public int nT;
+        public int nH;
+        public int nS;
+        public int nL;
+
+        public Warning() {
+        }
+    }
+
+    public String getWarning(int id){
+        Warning warning = new Warning();
+        warning.nT = alertService.get(id+"-temp");
+        warning.nH = alertService.get(id+"-humid");
+        warning.nS = alertService.get(id+"-smoke");
+        warning.nL = alertService.get(id+"-light");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(warning);
+        }catch (JsonProcessingException e){
+            return null;
+        }
     }
 }

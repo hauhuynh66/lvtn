@@ -2,6 +2,18 @@ var temp = $("#temp-chart");
 var humid = $("#humid-chart");
 var house_id = $("#house_id").text();
 var m = 20;
+$("#startDate").datepicker({
+    autoclose:true,
+    format: 'mm/dd/yyyy'
+});
+var from = new Date().getTime();
+var to = new Date(from+86400000).getTime();
+$("#startDate").datepicker("update", new Date());
+$("#endDate").datepicker({
+    autoclose:true,
+    format: 'mm/dd/yyyy'
+});
+$("#endDate").datepicker("update", new Date(to));
 var tchart = new Chart(temp,{
     type: "line",
     data: {
