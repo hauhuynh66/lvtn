@@ -14,6 +14,7 @@ $("#endDate").datepicker({
     format: 'mm/dd/yyyy'
 });
 $("#endDate").datepicker("update", new Date(to));
+var hst = $("#ht-chart");
 var tchart = new Chart(temp,{
     type: "line",
     data: {
@@ -76,6 +77,70 @@ var hchart = new Chart(humid,{
     }
 });
 
+var ht = new Chart(hst,{
+    type: "line",
+    data: {
+        labels: [],
+        datasets: [{
+            label: "Temperature",
+            borderColor: "#ff0000",
+            borderWidth: 2,
+            fill: false,
+            data: [],
+            yAxisID: 'y-1'
+        },{
+            label: "Humidity",
+            borderColor: "#0000ff",
+            borderWidth: 2,
+            fill: false,
+            data: [],
+            yAxisID: 'y-2'
+        }]
+    },
+    options: {
+        responsive: true,
+        legend: {
+            display: false
+        },
+        stacked: false,
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'hour'
+                }
+            }],
+            yAxes: [{
+                type: 'linear',
+                display: true,
+                position: 'left',
+                id: 'y-1',
+                ticks: {
+                    suggestedMin: 20,
+                    suggestedMax: 50
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Temperature'
+                }
+            },{
+                type: 'linear',
+                display: true,
+                position: 'right',
+                id: 'y-2',
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Humidity'
+                }
+            }]
+        }
+    }
+});
+
 $(document).ready(function () {
     getData();
     setInterval(update, 5000);
@@ -101,11 +166,27 @@ function getData() {
 }
 
 $("#getH").on('click', function () {
-
+    getHistory(from, to);
 });
 
 function getHistory(from, to) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8400/data/"+house_id+"/history/weather",
+        dataType: "json",
+        data: {
+            from: from,
+            to: to
+        },
+        success: function (data) {
+            console.log(data);
+            var res = JSON.parse(data);
 
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
 }
 
 function update() {
@@ -114,7 +195,6 @@ function update() {
         url: "/data/top/"+house_id+"/dht",
         success: function (data) {
             var res = jQuery.parseJSON(data);
-            console.log(res);
             addData(tchart, m++, res.temp);
             removeData(tchart, 0);
             addData(hchart, m++, res.humid);

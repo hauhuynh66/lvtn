@@ -109,7 +109,7 @@
                                     </th>
                                 </tr>
                                 </thead>
-                                <tbody class="text-center" id="extra_table">
+                                <tbody class="text-center" id="extra_data">
                                 </tbody>
                             </table>
                         </div>
@@ -119,18 +119,32 @@
             <div th:include="fragment::footer"></div>
         </div>
     </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="ex-modal">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" tabindex="-1" role="dialog" id="extra_modal">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>Extra</h3>
                 </div>
                 <div class="modal-body">
-
+                    <div class="dataTables_wrapper">
+                        <table class="table table-bordered dataTable" id="extra_table" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead class="text-center">
+                            <tr role="row">
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 50%;">
+                                    <span>Data</span>
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 25%;">
+                                    <span>Time</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-center" id="extra_list">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success" id="logout-btn">Confirm</button>
-                    <button class="btn btn-outline-info" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-outline-info" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

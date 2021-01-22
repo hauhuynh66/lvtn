@@ -16,10 +16,12 @@ public class ListInfo {
     }
     private List<Value> data;
     private String des;
+    private String tag;
 
-    public ListInfo(String des) {
+    public ListInfo(String des, String tag) {
         this.des = des;
         this.data = new ArrayList<>();
+        this.tag = tag;
     }
 
     public void setDHT(List<DHT> dhtList, int mode){
@@ -56,5 +58,13 @@ public class ListInfo {
 
     public String getDes() {
         return des;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

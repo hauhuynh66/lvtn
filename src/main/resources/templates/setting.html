@@ -63,6 +63,26 @@
             <div th:include="fragment::footer"></div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="success-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Success</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container text-center">
+                        <i class="fas fa-info-circle fa-8x icon-danger"></i>
+                    </div>
+                    <div class="container text-center">
+                        <h4 class="text-danger">Change Setting Successfully</h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="logout-btn" type="button" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script th:src="@{/vendor/jquery/jquery-3.4.1.js}"></script>
 <script th:src="@{/vendor/bootstrap/bootstrap.js}"></script>

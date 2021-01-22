@@ -59,7 +59,7 @@ $(window).resize(function () {
 });
 
 $("#logout-btn").on('click',function () {
-    window.location = "/houses";
+    window.location = "/rooms";
 });
 /*
 $("#profile-btn").on('click',function () {

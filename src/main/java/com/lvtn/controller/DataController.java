@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.lvtn.exception.BadRequestException;
 import com.lvtn.model.JsonObject;
+import com.lvtn.model.JsonResponse;
 import com.lvtn.model.SDSerializer;
 import com.lvtn.model.StandardValue;
 import com.lvtn.service.AlertService;
@@ -117,10 +118,10 @@ public class DataController {
     public String recover(@RequestBody String body)throws BadRequestException {
         System.out.println(body);
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            List<RObject> objects = objectMapper.readValue(body, new TypeReference<List<RObject>>(){});
+            ObjectMapper mapper = new ObjectMapper();
+            List<RObject> objects = mapper.readValue(body, new TypeReference<List<RObject>>(){});
             dataService.rec(objects);
-            return "OK";
+            return mapper.writeValueAsString(new JsonResponse("OK"));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new BadRequestException("error");
@@ -131,6 +132,20 @@ public class DataController {
     @ResponseBody
     public String alert(@PathVariable("id")int id){
         return dataService.getWarning(id);
+    }
+
+    @GetMapping("/{id}/history/weather")
+    @ResponseBody
+    public String history(@PathVariable("id")int id,
+                          @RequestParam("from")long dFrom,
+                          @RequestParam("to")long dTo)throws BadRequestException{
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(dataService.getDHT(id, new Date(dFrom), new Date(dTo)));
+        }catch (JsonProcessingException e){
+            e.printStackTrace();
+            throw new BadRequestException("Error");
+        }
     }
 
 }

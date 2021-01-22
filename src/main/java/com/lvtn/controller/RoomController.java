@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.lvtn.exception.BadRequestException;
-import com.lvtn.model.Room;
-import com.lvtn.model.RoomDevice;
-import com.lvtn.model.SDSerializer;
-import com.lvtn.model.StandardValue;
+import com.lvtn.model.*;
 import com.lvtn.service.DataService;
 import com.lvtn.service.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +19,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/room")
 public class RoomController {
+
     private static class DeviceData{
         public String id;
         public int room;
@@ -151,7 +149,7 @@ public class RoomController {
         try {
             SDData data = mapper.readValue(body, SDData.class);
             if(dataService.changeSD(data.getId(), data.getT(), data.getH(), data.getS(), data.getL())){
-                return "OK";
+                return mapper.writeValueAsString(new JsonResponse("OK"));
             }else{
                 throw new BadRequestException("StandardValue not found");
             }
@@ -176,7 +174,7 @@ public class RoomController {
         try {
             DeviceStatus data = mapper.readValue(body, DeviceStatus.class);
             if(dataService.changeState(data.id, data.status)){
-                return "OK";
+                return mapper.writeValueAsString(new JsonResponse("OK"));
             }else{
                 throw new BadRequestException("Device not found!");
             }
@@ -202,7 +200,7 @@ public class RoomController {
             HttpStatus status = restService.postRequest("http://192.168.137.1:4000/receive_device",map);
             if(status==HttpStatus.OK){
                 dataService.changeState(deviceData.id, s);
-                return "OK";
+                return mapper.writeValueAsString(new JsonResponse("OK"));
             }else{
                 throw new BadRequestException("Error");
             }

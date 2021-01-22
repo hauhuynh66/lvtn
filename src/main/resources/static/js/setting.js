@@ -16,13 +16,13 @@ $("#send").on('click', function () {
             l : $("#rs_l").val(),
             s : $("#rs_s").val()
         }),
-        success: function (data) {
-            console.log(data);
+        success: function () {
+            $("#success-modal").modal('toggle');
         },
         error: function (err) {
             console.log(err);
         }
-    })
+    });
 });
 
 function getSD(id) {

@@ -154,16 +154,16 @@ public class DataService {
         if(room !=null) {
             report.setFrom(from); report.setTo(to);
             StandardValue rs = getSD(roomId);
-            ListInfo infoT = new ListInfo("Temperature Greater Than Standard Value");
+            ListInfo infoT = new ListInfo("Temperature Greater Than Standard Value", "t");
             infoT.setDHT(dhtRepository.
                     getAllByRoomAndDateGreaterThanAndDateLessThanAndTempGreaterThan(room, from, to, rs.getT()), 1);
-            ListInfo infoH = new ListInfo("Humidity Greater Than Standard Value");
+            ListInfo infoH = new ListInfo("Humidity Greater Than Standard Value", "h");
             infoH.setDHT(dhtRepository
                     .getAllByRoomAndDateGreaterThanAndDateLessThanAndHumidGreaterThan(room, from, to, rs.getH()), 2);
-            ListInfo infoS = new ListInfo("Smoke Density Greater Than Standard Value");
+            ListInfo infoS = new ListInfo("Smoke Density Greater Than Standard Value", "s");
             infoS.setMisc(miscRepository.
                     getAllByRoomAndDateGreaterThanAndDateLessThanAndSmokeGreaterThan(room, from, to, rs.getS()), 1);
-            ListInfo infoL = new ListInfo("Light Intensity Greater Than Standard Value");
+            ListInfo infoL = new ListInfo("Light Intensity Greater Than Standard Value", "l");
             infoL.setMisc(miscRepository
                     .getAllByRoomAndDateGreaterThanAndDateLessThanAndLightGreaterThan(room, from, to, rs.getL()), 2);
             report.getList().add(infoT);
@@ -317,5 +317,10 @@ public class DataService {
         }catch (JsonProcessingException e){
             return null;
         }
+    }
+
+    public List<DHT> getDHT(int id, Date from, Date to){
+        Room room = getRoom(id);
+        return dhtRepository.getAllByRoomAndDateGreaterThanAndDateLessThan(room, from, to);
     }
 }
