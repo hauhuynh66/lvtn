@@ -136,12 +136,26 @@ public class DataController {
 
     @GetMapping("/{id}/history/weather")
     @ResponseBody
-    public String history(@PathVariable("id")int id,
+    public String weatherHistory(@PathVariable("id")int id,
                           @RequestParam("from")long dFrom,
                           @RequestParam("to")long dTo)throws BadRequestException{
         ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.writeValueAsString(dataService.getDHT(id, new Date(dFrom), new Date(dTo)));
+        }catch (JsonProcessingException e){
+            e.printStackTrace();
+            throw new BadRequestException("Error");
+        }
+    }
+
+    @GetMapping("/{id}/history/misc")
+    @ResponseBody
+    public String miscHistory(@PathVariable("id")int id,
+                          @RequestParam("from")long dFrom,
+                          @RequestParam("to")long dTo)throws BadRequestException{
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(dataService.getMisc(id, new Date(dFrom), new Date(dTo)));
         }catch (JsonProcessingException e){
             e.printStackTrace();
             throw new BadRequestException("Error");

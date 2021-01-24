@@ -81,13 +81,13 @@
             </button>-->
         </div>
         <div class="w-haft justify-content-end">
-            <h4 id="t_a" class="mx-2"></h4>
+            <h4 id="t_a" class="malert mx-2"></h4>
             <div class='vr'></div>
-            <h4 id="t_h" class="mx-2"></h4>
+            <h4 id="t_h" class="malert mx-2"></h4>
             <div class='vr'></div>
-            <h4 id="t_s" class="mx-2"></h4>
+            <h4 id="t_s" class="malert mx-2"></h4>
             <div class='vr'></div>
-            <h4 id="t_l" class="mx-2"></h4>
+            <h4 id="t_l" class="malert mx-2"></h4>
             <div class='vr'></div>
         </div>
         <!--<div class="w-haft justify-content-end">
@@ -120,6 +120,27 @@
                 <div class="modal-footer">
                     <button class="btn btn-success" id="logout-btn">Confirm</button>
                     <button class="btn btn-outline-info" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="alert-modal">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Alert</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="container text-center">
+                        <i class="fas fa-info-circle fa-4x icon-danger"></i>
+                    </div>
+                    <div class="container text-center">
+                        <h4 class="text-danger" id="a_message"></h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-info" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

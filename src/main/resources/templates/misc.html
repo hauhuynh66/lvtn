@@ -5,6 +5,7 @@
     <title>Miscellaneous</title>
     <link th:href="@{/vendor/bootstrap/bootstrap.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/vendor/font-awesome/css/all.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/vendor/datepicker/datepicker.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -38,15 +39,79 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card shadow mt-3 mb-5">
+                            <a href="#filter-form" class="card-header collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCardExample" tabindex="-1">
+                                <h4 class="text-info">History</h4>
+                            </a>
+                            <div class="collapse" id="filter-form">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label for="planned-from-date" class="text-danger">From</label>
+                                                <div id="planned-from-date" class="input-group date datepicker no-margin">
+                                                    <input class="form-control" readonly="" type="text" id="startDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label class="text-success" for="planned-to-date">To</label>
+                                                <div id="planned-to-date" class="input-group date datepicker no-margin">
+                                                    <input class="form-control" readonly="" type="text" id="endDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-success float-right" id="getH">Go</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card shadow bordered">
+                                                <div class="card-header text-center">
+                                                    <h4>Temperature</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <canvas id="hs-chart" height="200px"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card shadow bordered">
+                                                <div class="card-header text-center">
+                                                    <h4>Humid</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <canvas id="hl-chart" height="200px"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div th:include="fragment::footer"></div>
         </div>
     </div>
 </div>
 <script th:src="@{/vendor/jquery/jquery-3.4.1.js}"></script>
 <script th:src="@{/vendor/bootstrap/bootstrap.js}"></script>
+<script th:src="@{/vendor/moment/moment.js}"></script>
 <script th:src="@{/vendor/chartjs/chart.js}"></script>
 <script th:src="@{/vendor/font-awesome/js/fontawesome.js}"></script>
+<script th:src="@{/vendor/datepicker/datepicker.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/misc.js}"></script>
 </body>

@@ -266,25 +266,22 @@ public class DataService {
     }
 
     public void alert(JsonObject object){
-        Room room = getRoom(object.getRoom());
-        DHT dht = dhtRepository.getTopByRoomOrderByDateDesc(room);
-        Misc misc = miscRepository.getTopByRoomOrderByDateDesc(room);
-        if(Math.abs(dht.getTemp()-object.getTemp().getTemp())>5){
+        if(object.getTemp().isX()){
             alertService.load(object.getRoom()+"-temp");
         }else{
             alertService.clear(object.getRoom()+"-temp");
         }
-        if(Math.abs(dht.getHumid()-object.getHumi().getHumi())>10){
+        if(object.getHumi().isX()){
             alertService.load(object.getRoom()+"-humid");
         }else{
             alertService.clear(object.getRoom()+"-humid");
         }
-        if(Math.abs(misc.getSmoke()-object.getSmoke().getSmoke())>100){
+        if(object.getSmoke().isX()){
             alertService.load(object.getRoom()+"-smoke");
         }else{
             alertService.clear(object.getRoom()+"-smoke");
         }
-        if(Math.abs(misc.getLight()-object.getLight().getLight())>100){
+        if(object.getLight().isX()){
             alertService.load(object.getRoom()+"-light");
         }else{
             alertService.clear(object.getRoom()+"-light");
@@ -322,5 +319,10 @@ public class DataService {
     public List<DHT> getDHT(int id, Date from, Date to){
         Room room = getRoom(id);
         return dhtRepository.getAllByRoomAndDateGreaterThanAndDateLessThan(room, from, to);
+    }
+
+    public List<Misc> getMisc(int id, Date from, Date to){
+        Room room = getRoom(id);
+        return miscRepository.getAllByRoomAndDateGreaterThanAndDateLessThan(room, from, to);
     }
 }

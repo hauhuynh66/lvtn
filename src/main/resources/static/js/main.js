@@ -1,4 +1,6 @@
 var toggle = 0;
+var as = 0;
+var message = "";
 $("#menu-collapse").on('click',function () {
     toggle++;
     sidebarToggle(toggle%2);
@@ -16,6 +18,18 @@ function getAlert() {
         url : "http://localhost:8400/data/"+id+"/alert",
         success : function (data) {
             var res = JSON.parse(data);
+            if(res.nT===5){
+                $(".malert").trigger("my_alert", "Temperature Alert");
+            }
+            if(res.nH===5){
+                $(".malert").trigger("my_alert", "Humidity Alert");
+            }
+            if(res.nL===5){
+                $(".malert").trigger("my_alert", "Light Intensity Alert");
+            }
+            if(res.nS===5){
+                $(".malert").trigger("my_alert", "Smoke Density Alert");
+            }
             $("#t_a").text(res.nT);
             $("#t_h").text(res.nH);
             $("#t_l").text(res.nL);
@@ -26,6 +40,13 @@ function getAlert() {
         }
     });
 }
+
+$(".malert").on('my_alert', function (data) {
+    message = data;
+    $("#a_message").text(message);
+    $("#alert-modal").modal("toggle");
+});
+
 
 function sidebarToggle(i) {
     if(i===1){

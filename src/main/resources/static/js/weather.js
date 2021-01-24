@@ -15,6 +15,7 @@ $("#endDate").datepicker({
 });
 $("#endDate").datepicker("update", new Date(to));
 var hst = $("#ht-chart");
+var hsh = $("#hh-chart");
 var tchart = new Chart(temp,{
     type: "line",
     data: {
@@ -83,63 +84,138 @@ var ht = new Chart(hst,{
         labels: [],
         datasets: [{
             label: "Temperature",
-            borderColor: "#ff0000",
-            borderWidth: 2,
-            fill: false,
-            data: [],
-            yAxisID: 'y-1'
-        },{
-            label: "Humidity",
-            borderColor: "#0000ff",
-            borderWidth: 2,
-            fill: false,
-            data: [],
-            yAxisID: 'y-2'
+            backgroundColor: "#ff0000",
+            borderColor: "#000000",
+            borderWidth: 3,
+            data: []
         }]
     },
     options: {
-        responsive: true,
         legend: {
             display: false
         },
-        stacked: false,
         scales: {
             xAxes: [{
-                type: 'time',
-                time: {
-                    unit: 'hour'
-                }
+                type: 'time'
             }],
             yAxes: [{
-                type: 'linear',
-                display: true,
-                position: 'left',
-                id: 'y-1',
                 ticks: {
-                    suggestedMin: 20,
+                    suggestedMin: 0,
                     suggestedMax: 50
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: 'Temperature'
-                }
-            },{
-                type: 'linear',
-                display: true,
-                position: 'right',
-                id: 'y-2',
-                ticks: {
-                    suggestedMin: 0,
-                    suggestedMax: 100
-                },
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Humidity'
+                    labelString: "Temperature"
                 }
             }]
         }
     }
 });
+
+var hh = new Chart(hsh,{
+    type: "line",
+    data: {
+        labels: [],
+        datasets: [{
+            label: "Temperature",
+            backgroundColor: "#0000ff",
+            borderColor: "#000000",
+            borderWidth: 3,
+            data: []
+        }]
+    },
+    options: {
+        legend: {
+            display: false
+        },
+        scales: {
+            xAxes: [{
+                type: 'time'
+            }],
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 50,
+                    suggestedMax: 100
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: "Humidity"
+                }
+            }]
+        }
+    }
+});
+
+function rein(){
+    ht.destroy();
+    hh.destroy();
+    ht = new Chart(hst,{
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [{
+                label: "Temperature",
+                backgroundColor: "#ff0000",
+                borderColor: "#000000",
+                borderWidth: 3,
+                data: []
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    type: 'time'
+                }],
+                yAxes: [{
+                    ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 50
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Temperature"
+                    }
+                }]
+            }
+        }
+    });
+    hh = new Chart(hsh,{
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [{
+                label: "Humidity",
+                backgroundColor: "#0000ff",
+                borderColor: "#000000",
+                borderWidth: 3,
+                data: []
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    type: 'time'
+                }],
+                yAxes: [{
+                    ticks: {
+                        suggestedMin: 50,
+                        suggestedMax: 100
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Humidity"
+                    }
+                }]
+            }
+        }
+    });
+}
 
 $(document).ready(function () {
     getData();
@@ -153,7 +229,6 @@ function getData() {
         success: function (data) {
             var res = jQuery.parseJSON(data);
             res.reverse();
-            console.log(res);
             jQuery(res).each(function (i, value) {
                 addData(tchart, i, value.temp);
                 addData(hchart, i, value.humid);
@@ -170,6 +245,7 @@ $("#getH").on('click', function () {
 });
 
 function getHistory(from, to) {
+    rein();
     $.ajax({
         type: "GET",
         url: "http://localhost:8400/data/"+house_id+"/history/weather",
@@ -180,8 +256,13 @@ function getHistory(from, to) {
         },
         success: function (data) {
             console.log(data);
-            var res = JSON.parse(data);
-
+            var n;
+            for(n=0;n<data.length;n++){
+                var d = moment(new Date(data[n].date)).format("YYYY-MM-DD hh:mm a");
+                console.log(d);
+                addData(ht, d, {x: d, y: data[n].temp});
+                addData(hh, d, {x: d, y: data[n].humid});
+            }
         },
         error: function (e) {
             console.log(e);
@@ -217,6 +298,13 @@ function addData(chart, label, data) {
 function removeData(chart, index) {
     chart.data.labels.splice(index, 1);
     chart.data.datasets[0].data.splice(index, 1);
+    chart.update();
+}
+
+function addData2(chart, label, d1, d2) {
+    chart.data.labels.push(label);
+    chart.data.datasets[0].data.push(d1);
+    chart.data.datasets[1].data.push(d2);
     chart.update();
 }
 
